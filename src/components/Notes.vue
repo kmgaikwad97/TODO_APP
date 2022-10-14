@@ -1,40 +1,30 @@
 <template>
   <div>
-  
-    <div class="main-div d-flex justify-content-center">
-      <div class="another-div">
-        <div class="box heading text-center">
-          <h4 class="heading">ID</h4>
-        </div>
-        <ul class="main-list" v-for="user in list" :key="user.id">
-          <li class="list-data">{{ user.id }}</li>
-        </ul>
-      </div>
+    <table
+      id="tableflow"
+      class="tableflow table table-bordered table-secondary table-striped"
+    >
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">User ID</th>
+          <th scope="col">User Name</th>
+          <th scope="col">Title</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
 
-      <div class="box">
-        <h4>UserID</h4>
-
-        <ul v-for="user in list" :key="user.id">
-          <li>{{ user.title }}</li>
-        </ul>
-      </div>
-
-      <div class="box">
-        <h4>Name</h4>
-        <ul v-for="user in lists" :key="user.id">
-          <li>{{ user.name }}</li>
-        </ul>
-      </div>
-
-      <div class="box">
-        <h4>Status</h4>
-        <ul v-for="user in list" :key="user.id">
-          <li>{{ user.completed }}</li>
-        </ul>
-      </div>
-    </div>
-
-    
+      <tbody>
+        <tr v-for="user in list" :key="user.id">
+          <!-- <th scope="row">{{ index + 1 }}</th> -->
+          <td v-text="user.id"></td>
+          <td v-text="user.userId"></td>
+          <td v-text="user.name"></td>
+          <td v-text="user.title"></td> 
+          <td v-text="user.completed"></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -48,21 +38,20 @@ export default {
       lists: [],
     };
   },
+  
 
-  methods: {
+  methods:{
+    
+
     async loadData() {
-      const result = await axios.get(
-        "https://jsonplaceholder.typicode.com/todos"
-      );
+      const result = await axios.get("https://jsonplaceholder.typicode.com/todos");
 
       console.log(result);
       console.log("Notes", result.data);
       this.list = result.data;
     },
     async loadUsers() {
-      const result = await axios.get(
-        "https://jsonplaceholder.typicode.com/users"
-      );
+      const result = await axios.get("https://jsonplaceholder.typicode.com/users");
 
       console.log(result);
       console.log("Users", result.data);
@@ -77,17 +66,5 @@ export default {
 };
 </script>
 
-<style scoped>
-ul {
-  list-style-type: none;
-}
-h4 {
-  border: 1px solid black;
-}
-ul {
-  border: 1px solid black;
-}
-li {
-  border: 1px solid black;
-}
+<style>
 </style>
